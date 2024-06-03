@@ -4,6 +4,48 @@
              xmlns:local="clr-namespace:WpfApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#388E3C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="#4CAF50"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinWidth" Value="100"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ErrorTextBlock">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="Margin" Value="10,5,5,5"/>
+        </Style>
+
+        <SolidColorBrush x:Key="ListViewBackgroundBrush" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="ListViewItemBackgroundBrush" Color="White"/>
+        <SolidColorBrush x:Key="ListViewItemBorderBrush" Color="#BDBDBD"/>
+        <SolidColorBrush x:Key="ListViewItemHoverBrush" Color="#CFD8DC"/>
     </Application.Resources>
 </Application>

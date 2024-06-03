@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Title="Thread Generator" Height="450" Width="800">
-    <Grid>
+    <Grid Background="{StaticResource ListViewBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -23,18 +23,31 @@
 
         <Label Grid.Row="0" Grid.Column="0" Content="Number of Threads:" Margin="5,5,5,5"/>
         <TextBox Grid.Row="0" Grid.Column="1" Name="ThreadCountTextBox" Margin="5,5,5,5"/>
-        <Button Grid.Row="0" Grid.Column="2" Name="StartButton" Content="Start" Click="StartButton_Click" Margin="5,5,5,5"/>
-        <Button Grid.Row="0" Grid.Column="3" Name="StopButton" Content="Stop" Click="StopButton_Click" IsEnabled="False" Margin="5,5,5,5"/>
+        <Button Grid.Row="0" Grid.Column="2" Name="StartButton" Content="Start" Click="StartButton_Click"/>
+        <Button Grid.Row="0" Grid.Column="3" Name="StopButton" Content="Stop" Click="StopButton_Click" IsEnabled="False"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Name="ErrorMessageTextBlock" Foreground="Red" Margin="10,5,5,5"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Name="ErrorMessageTextBlock" Style="{StaticResource ErrorTextBlock}"/>
 
-        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Name="GeneratedDataListView" Margin="5,5,5,5">
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Name="GeneratedDataListView" Margin="5,5,5,5" Background="{StaticResource ListViewBackgroundBrush}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Thread ID" DisplayMemberBinding="{Binding ThreadID}" Width="150"/>
                     <GridViewColumn Header="Generated Data" DisplayMemberBinding="{Binding Data}" Width="650"/>
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="{StaticResource ListViewItemBackgroundBrush}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource ListViewItemBorderBrush}"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="Padding" Value="5"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ListViewItemHoverBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </Window>
