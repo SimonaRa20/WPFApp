@@ -13,9 +13,17 @@ namespace BusinessLogic
 
         public string Generate()
         {
-            int length = _random.Next(5, 11);
-            return new string(Enumerable.Repeat(_chars, length)
-                .Select(s => s[_random.Next(s.Length)]).ToArray());
+            try
+            {
+                int length = _random.Next(5, 11);
+                return new string(Enumerable.Repeat(_chars, length)
+                    .Select(s => s[_random.Next(s.Length)]).ToArray());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error generating random string: {ex.Message}");
+                return string.Empty;
+            }
         }
     }
 }

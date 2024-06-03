@@ -28,7 +28,7 @@
 
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Name="ErrorMessageTextBlock" Foreground="Red" Margin="10,5,5,5"/>
 
-        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Name="GeneratedDataListView" Margin="5,5,5,5" SelectionChanged="GeneratedDataListView_SelectionChanged">
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Name="GeneratedDataListView" Margin="5,5,5,5">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Thread ID" DisplayMemberBinding="{Binding ThreadID}" Width="150"/>

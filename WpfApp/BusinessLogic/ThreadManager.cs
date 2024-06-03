@@ -20,19 +20,33 @@ namespace BusinessLogic
 
         public void Start()
         {
-            _cts = new CancellationTokenSource();
-
-            for (int i = 1; i <= _threadCount; i++)
+            try
             {
-                int threadId = i;
-                _tasks.Add(Task.Run(() => GenerateData(threadId, _cts.Token)));
+                _cts = new CancellationTokenSource();
+
+                for (int i = 1; i <= _threadCount; i++)
+                {
+                    int threadId = i;
+                    _tasks.Add(Task.Run(() => GenerateData(threadId, _cts.Token)));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error starting threads: {ex.Message}");
             }
         }
 
         public async Task Stop()
         {
-            _cts.Cancel();
-            await Task.WhenAll(_tasks);
+            try
+            {
+                _cts.Cancel();
+                await Task.WhenAll(_tasks);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error stopping threads: {ex.Message}");
+            }
         }
 
         private async Task GenerateData(int threadId, CancellationToken token)
@@ -42,19 +56,26 @@ namespace BusinessLogic
 
             while (!token.IsCancellationRequested)
             {
-                await Task.Delay(random.Next(500, 2000), token);
-                string data = _stringGenerator.Generate();
-                var generatedData = new GeneratedData
+                try
                 {
-                    ThreadID = threadId,
-                    Time = DateTime.Now,
-                    Data = data
-                };
+                    await Task.Delay(random.Next(500, 2000), token);
+                    string data = _stringGenerator.Generate();
+                    var generatedData = new GeneratedData
+                    {
+                        ThreadID = threadId,
+                        Time = DateTime.Now,
+                        Data = data
+                    };
 
-                dbContext.GeneratedData.Add(generatedData);
-                await dbContext.SaveChangesAsync();
+                    dbContext.GeneratedData.Add(generatedData);
+                    await dbContext.SaveChangesAsync();
 
-                _updateUI(generatedData);
+                    _updateUI(generatedData);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error generating data for thread {threadId}: {ex.Message}");
+                }
             }
         }
     }
